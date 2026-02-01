@@ -13,6 +13,12 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #000000;
         }
 
         .container {
@@ -22,58 +28,44 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-mode .container {
+            background: #f5f5f5;
+            color: #000000;
         }
 
         h1 {
             font-size: 24px;
-            color: #ffffff;
+            color: inherit;
             text-align: center;
         }
 
-        .daiji {
+        .daiji, .hutu, .tyoto {
             margin: 20px 0;
             padding: 15px;
-            border-left: 5px solid #a600ff;
-            background: #1b1b1b;
             border-radius: 5px;
+            background: #1b1b1b;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        .hutu {
-            margin: 20px 0;
-            padding: 15px;
-            border-left: 5px solid #267dff;
-            background: #1b1b1b;
-            border-radius: 5px;
+        body.light-mode .daiji,
+        body.light-mode .hutu,
+        body.light-mode .tyoto {
+            background: #e0e0e0;
+            color: #000;
         }
 
-        .tyoto {
-            margin: 20px 0;
-            padding: 15px;
-            border-left: 5px solid #4eff80;
-            background: #1b1b1b;
-            border-radius: 5px;
-        }
+        .daiji { border-left: 5px solid #a600ff; }
+        .hutu  { border-left: 5px solid #267dff; }
+        .tyoto { border-left: 5px solid #4eff80; }
 
-        .btn {
+        .btn, .nobtn {
             display: block;
             width: 100%;
             padding: 15px;
             margin-top: 20px;
-            background: #007bff;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
-                        .nobtn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background: #4e4e4e;
-            color: #fff;
             text-align: center;
             border-radius: 5px;
             font-weight: bold;
@@ -81,33 +73,115 @@
             cursor: pointer;
         }
 
-        .btn:hover {
-            background: #0056b3;
-        }
+        .btn { background: #007bff; color: #fff; }
+        .btn:hover { background: #0056b3; }
+        .nobtn { background: #4e4e4e; color: #fff; }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .btn {
-                font-size: 16px;
-            }
+            .container { padding: 15px; }
+            h1 { font-size: 20px; }
+            .btn { font-size: 16px; }
         }
+
+        /* -------------------
+           右上メニュー用スタイル
+        ------------------- */
+        .menu-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .menu-toggle {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+            width: 120px;
+            text-align: center;
+        }
+
+        .menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            width: 120px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        body.light-mode .menu {
+            background-color: #e0e0e0;
+            border-color: #aaa;
+        }
+
+        .menu.open {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .menu button {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .menu button.light {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+
+        .menu button.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.light-mode .menu button.dark {
+            background-color: #555;
+            color: #fff;
+        }
+
+        body.light-mode .menu button.light {
+            background-color: #fff;
+            color: #000;
+        }
+
     </style>
 </head>
 <body>
-     <div class="container">
+
+    <!-- 右上メニュー -->
+    <div class="menu-container">
+        <button class="menu-toggle">メニュー</button>
+        <div class="menu">
+            <button class="light">ライトモード</button>
+            <button class="dark">ダークモード</button>
+        </div>
+    </div>
+
+    <div class="container">
         <h1>サイト更新情報</h1>
-            <div class="tyoto">
+        <div class="tyoto">
             <h2>v1.1.2　26/2/1</h2>
             <p>ボタンの順を変更しました</p>
         </div>
-                <div class="hutu">
+        <div class="hutu">
             <h2>v1.1.1　26/2/1</h2>
             <p>更新情報を追加しました</p>
             <p>ダークモードに変更しました。</p>
@@ -120,10 +194,15 @@
             <h2>v1.0.0　26/2/1</h2>
             <p>サイトが公開されました。</p>
         </div>
+
         <button class="btn" onclick="window.location.href='https://discord.gg/NTzybmQzB3'">Discordサーバーに参加</button>
-    <button class="btn" onclick="window.location.href='https://uuu-soda23.github.io/discordserver_site/'">ホーム</button>
-    <button class="btn" onclick="window.location.href='https://uuu-soda23.github.io/discordserver_adm1n/'">運営一覧</button>
-    <button class="nobtn">サイト更新情報</button>
+        <button class="btn" onclick="window.location.href='https://uuu-soda23.github.io/discordserver_site/'">ホーム</button>
+        <button class="btn" onclick="window.location.href='https://uuu-soda23.github.io/discordserver_adm1n/'">運営一覧</button>
+        <button class="nobtn">サイト更新情報</button>
     </div>
+
+    <!-- 外部JS読み込み -->
+    <script src="index.js"></script>
+
 </body>
 </html>
